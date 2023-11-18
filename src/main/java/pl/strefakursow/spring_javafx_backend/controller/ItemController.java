@@ -15,7 +15,7 @@ public class ItemController {
     private final ItemRepository itemRepository;
 
     @PostMapping("/items")
-    Item newItem(@RequestBody Item newItem) {
+    public Item newItem(@RequestBody Item newItem) {
         return itemRepository.save(newItem);
     }
 
@@ -25,7 +25,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/items")
-    ResponseEntity deleteItem(@RequestBody Long idItem) {
+    public ResponseEntity deleteItem(@RequestBody Long idItem) {
         itemRepository.deleteById(idItem);
         return ResponseEntity.ok().build();
     }

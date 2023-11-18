@@ -17,7 +17,7 @@ public class WarehouseController {
     private final WarehouseRepository warehouseRepository;
 
     @PostMapping("/warehouses")
-    Warehouse newWarehouse(@RequestBody Warehouse newWarehouse) {
+    public Warehouse newWarehouse(@RequestBody Warehouse newWarehouse) {
         return warehouseRepository.save(newWarehouse);
     }
 
@@ -27,7 +27,7 @@ public class WarehouseController {
     }
 
     @DeleteMapping("/warehouses")
-    ResponseEntity deleteWarehouse(@RequestBody Long idWarehouse) {
+    public ResponseEntity deleteWarehouse(@RequestBody Long idWarehouse) {
         warehouseRepository.deleteById(idWarehouse);
         return ResponseEntity.ok().build();
     }

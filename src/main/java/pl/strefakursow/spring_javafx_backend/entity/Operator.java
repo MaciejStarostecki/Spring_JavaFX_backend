@@ -17,6 +17,6 @@ public class Operator {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "employee")
+    @JoinColumn(name = "idEmployee")
     Employee employee;
 }

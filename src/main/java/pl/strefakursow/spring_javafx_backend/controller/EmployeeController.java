@@ -15,7 +15,7 @@ public class EmployeeController {
     private final EmployeeRepository employeeRepository;
 
     @PostMapping("/employees")
-    Employee newEmployee(@RequestBody Employee newEmployee) {
+    public Employee newEmployee(@RequestBody Employee newEmployee) {
         return employeeRepository.save(newEmployee);
     }
 
@@ -25,7 +25,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees")
-    ResponseEntity deleteEmployee(@RequestBody Long idEmployee) {
+    public ResponseEntity deleteEmployee(@RequestBody Long idEmployee) {
         employeeRepository.deleteById(idEmployee);
         return ResponseEntity.ok().build();
     }
