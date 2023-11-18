@@ -3,10 +3,12 @@ package pl.strefakursow.spring_javafx_backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.strefakursow.spring_javafx_backend.dto.EmployeeDto;
 import pl.strefakursow.spring_javafx_backend.entity.Employee;
 import pl.strefakursow.spring_javafx_backend.repository.EmployeeRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,8 +22,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public List<Employee> listEmployee() {
-        return employeeRepository.findAll();
+    public List<EmployeeDto> listEmployee() {
+        return employeeRepository.findAll()
+                .stream()
+                .map(EmployeeDto::of)
+                .collect(Collectors.toList());
     }
 
     @DeleteMapping("/employees")

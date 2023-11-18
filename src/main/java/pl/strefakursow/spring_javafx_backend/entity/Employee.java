@@ -16,6 +16,9 @@ public class Employee {
     @Column
     private String lastName;
 
+    @Column
+    private String salary;
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "idEmployee")
     Operator operator;
