@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 public class Item {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idItem;
 
     @Column
