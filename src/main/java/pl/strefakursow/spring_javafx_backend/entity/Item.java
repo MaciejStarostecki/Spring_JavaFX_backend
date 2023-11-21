@@ -22,12 +22,14 @@ public class Item {
     @JoinColumn (name = "idQuantityType")
     QuantityType quantityType;
 
-    @ManyToMany
-    @JoinTable(
-            name = "item_warehouse",
-            joinColumns = @JoinColumn(name = "idItem"),
-            inverseJoinColumns = @JoinColumn(name = "idWarehouse")
-    )
-    private Set<Warehouse> warehouses;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "item_warehouse",
+//            joinColumns = @JoinColumn(name = "idItem"),
+//            inverseJoinColumns = @JoinColumn(name = "idWarehouse")
+//    )
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idWarehouse")
+    private Warehouse warehouse;
 
 }

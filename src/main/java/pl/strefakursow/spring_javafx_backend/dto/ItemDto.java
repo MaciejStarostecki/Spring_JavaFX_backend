@@ -17,6 +17,7 @@ public class ItemDto {
         dto.setName(item.getName());
         dto.setQuantity(item.getQuantity());
         dto.setQuantityType(item.getQuantityType().getName());
+        System.out.println(dto + "1");
         return dto;
     }
 

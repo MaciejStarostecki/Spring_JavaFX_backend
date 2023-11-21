@@ -3,6 +3,7 @@ package pl.strefakursow.spring_javafx_backend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,7 +17,9 @@ public class Warehouse {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "warehouses")
-    private Set<Item> items;
+//    @ManyToMany(mappedBy = "warehouses")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
+    private List<Item> items;
+
 
 }
