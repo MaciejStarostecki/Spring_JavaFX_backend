@@ -3,6 +3,7 @@ package pl.strefakursow.spring_javafx_backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.strefakursow.spring_javafx_backend.dto.ItemDto;
 import pl.strefakursow.spring_javafx_backend.entity.Item;
 import pl.strefakursow.spring_javafx_backend.repository.ItemRepository;
 
@@ -20,8 +21,11 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public List<Item> listItem() {
-        return itemRepository.findAll();
+    public List<ItemDto> listItem() {
+        return itemRepository.findAll()
+                .stream()
+                .map(ItemDto::of)
+                .toList();
     }
 
     @DeleteMapping("/items")
