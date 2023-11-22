@@ -4,6 +4,7 @@ package pl.strefakursow.spring_javafx_backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.strefakursow.spring_javafx_backend.dto.QuantityTypeDto;
 import pl.strefakursow.spring_javafx_backend.entity.QuantityType;
 import pl.strefakursow.spring_javafx_backend.repository.QuantityTypeRepository;
 
@@ -15,14 +16,14 @@ public class QuantityTypeController {
 
     private final QuantityTypeRepository quantityTypeRepository;
 
-    @PostMapping("/quantity_types")
+    @PostMapping("/")
     public QuantityType newQuantityType(@RequestBody QuantityType newQuantityType) {
         return quantityTypeRepository.save(newQuantityType);
     }
 
     @GetMapping("/quantity_types")
-    public List<QuantityType> listQuantityType() {
-        return quantityTypeRepository.findAll();
+    public List<QuantityTypeDto> listQuantityType() {
+        return quantityTypeRepository.findAll().stream().map(QuantityTypeDto::of).toList();
     }
 
     @DeleteMapping("/quantity_types")

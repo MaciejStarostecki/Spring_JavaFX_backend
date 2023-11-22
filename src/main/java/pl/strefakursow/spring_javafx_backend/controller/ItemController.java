@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.strefakursow.spring_javafx_backend.dto.ItemDto;
+import pl.strefakursow.spring_javafx_backend.dto.ItemSaveDto;
 import pl.strefakursow.spring_javafx_backend.entity.Item;
 import pl.strefakursow.spring_javafx_backend.repository.ItemRepository;
+import pl.strefakursow.spring_javafx_backend.service.ItemService;
 
 import java.util.List;
 
@@ -14,10 +16,11 @@ import java.util.List;
 public class ItemController {
 
     private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
     @PostMapping("/items")
-    public Item newItem(@RequestBody Item newItem) {
-        return itemRepository.save(newItem);
+    public ItemDto newItem(@RequestBody ItemSaveDto dto) {
+        return ItemDto.of(itemService.saveItem(dto));
     }
 
     @GetMapping("/items")

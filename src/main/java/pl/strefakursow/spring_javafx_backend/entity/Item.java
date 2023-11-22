@@ -2,6 +2,7 @@ package pl.strefakursow.spring_javafx_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import pl.strefakursow.spring_javafx_backend.dto.ItemSaveDto;
 
 import java.util.Set;
 
@@ -32,4 +33,10 @@ public class Item {
     @JoinColumn(name = "idWarehouse")
     private Warehouse warehouse;
 
+    public static Item of(ItemSaveDto dto) {
+        Item item = new Item();
+        item.setName(dto.getName());
+        item.setQuantity(dto.getQuantity());
+        return item;
+    }
 }
