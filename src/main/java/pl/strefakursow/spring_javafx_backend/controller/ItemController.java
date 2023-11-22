@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.strefakursow.spring_javafx_backend.dto.EmployeeDto;
 import pl.strefakursow.spring_javafx_backend.dto.ItemDto;
+import pl.strefakursow.spring_javafx_backend.dto.ItemEditViewDto;
 import pl.strefakursow.spring_javafx_backend.dto.ItemSaveDto;
 import pl.strefakursow.spring_javafx_backend.entity.Employee;
 import pl.strefakursow.spring_javafx_backend.entity.Item;
 import pl.strefakursow.spring_javafx_backend.repository.ItemRepository;
+import pl.strefakursow.spring_javafx_backend.repository.QuantityTypeRepository;
 import pl.strefakursow.spring_javafx_backend.service.ItemService;
 
 import java.util.List;
@@ -20,10 +22,19 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final QuantityTypeRepository quantityTypeRepository;
 
     @PostMapping("/items")
     public ItemDto newItem(@RequestBody ItemSaveDto dto) {
-        return ItemDto.of(itemService.saveItem(dto));
+        if (dto.getIdItem() == null)
+            return ItemDto.of(itemService.saveItem(dto));
+        else {
+            Item item = itemRepository.findById(dto.getIdItem()).get();
+            item.setName(dto.getName());
+            item.setQuantity(dto.getQuantity());
+            item.setQuantityType(quantityTypeRepository.findById(dto.getIdQuantityType()).get());
+            return ItemDto.of(itemRepository.save(item));
+        }
     }
 
     @GetMapping("/items")
@@ -32,6 +43,13 @@ public class ItemController {
                 .stream()
                 .map(ItemDto::of)
                 .toList();
+    }
+
+    @GetMapping("/item_edit_data/{idItem}")
+    public ItemEditViewDto getItemEditViewDto(@PathVariable Long idItem) {
+        Item item = itemRepository.findById(idItem).get();
+        ItemEditViewDto dto = ItemEditViewDto.of(item, quantityTypeRepository.findAll());
+        return dto;
     }
 
     @GetMapping("/items/{idItem}")

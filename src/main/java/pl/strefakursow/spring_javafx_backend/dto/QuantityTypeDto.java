@@ -6,14 +6,14 @@ import pl.strefakursow.spring_javafx_backend.entity.QuantityType;
 @Data
 public class QuantityTypeDto {
 
-    private Long idQuantytyType;
+    private Long idQuantityType;
     private String name;
 
     public static QuantityTypeDto of(QuantityType quantityType) {
 
         QuantityTypeDto dto = new QuantityTypeDto();
         dto.setName(quantityType.getName());
-        dto.setIdQuantytyType(quantityType.getIdQuantityType());
+        dto.setIdQuantityType(quantityType.getIdQuantityType());
         return dto;
 
     }
