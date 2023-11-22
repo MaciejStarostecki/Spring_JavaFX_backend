@@ -58,8 +58,8 @@ public class ItemController {
         return ItemDto.of(optionalItem.get());
     }
 
-    @DeleteMapping("/items")
-    public ResponseEntity deleteItem(@RequestBody Long idItem) {
+    @DeleteMapping("/items/{idItem}")
+    public ResponseEntity deleteItem(@PathVariable Long idItem) {
         itemRepository.deleteById(idItem);
         return ResponseEntity.ok().build();
     }
